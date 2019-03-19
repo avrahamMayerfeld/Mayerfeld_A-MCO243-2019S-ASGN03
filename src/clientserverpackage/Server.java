@@ -13,7 +13,7 @@ import java.io.*;
 
 public abstract class Server {
 	
-	 ArrayList<String> packets;
+	ArrayList<String> packets;
 	public  void setPackets(String[] arr) {
 		packets = new ArrayList<>(Arrays.asList(arr));
 	}
@@ -40,30 +40,35 @@ public abstract class Server {
         		
         ) {
         	System.out.println("Server started on port "+ portNumber);
-        	
+        	out.println("Sending");
         	//check that there are still non-received packets
         	while (!packets.stream().allMatch(x -> x == null))
             {   
+        		
         		String inputLine = in.readLine();
-        		//can parse 01 into 1?
-            	int receivedPacketNumber = Integer.parseInt(inputLine);//contains first 2 digits of packet id echoed by client
-            	//set received packets to null.
-            	packets.set(receivedPacketNumber, null);
-            	//go through all packets as long as there are non null ones - maybe needs optimization
-	            for (int i = 0; i < packets.size(); i++) 
-	            {   
-	            	String packetText = packets.get(i);
-	            	if(packetText != null) 
-	            	{
-	            		//send packets. use index in arrayList as "numerical" String id. Append "0" to id if single digit
-	            		String packetId = i >= 10 ? ""+i : "0"+i;
-	            		String fullPacket = packetId+packetText;
-	            		if(packetProbability) 
-		                {
-		                	out.println(fullPacket);
-		                }
-	            	}
-	            }	
+        		if(inputLine.matches("\\d\\d.+"))
+        		{
+	        			//serverSocket.setSoTimeout(3000);
+	        		//can parse 01 into 1?
+	            	int receivedPacketNumber = Integer.parseInt(inputLine);//contains first 2 digits of packet id echoed by client
+	            	//set received packets to null.
+	            	packets.set(receivedPacketNumber, null);
+	            	//go through all packets as long as there are non null ones - maybe needs optimization
+		            for (int i = 0; i < packets.size(); i++) 
+		            {   
+		            	String packetText = packets.get(i);
+		            	if(packetText != null) 
+		            	{
+		            		//send packets. use index in arrayList as "numerical" String id. Append "0" to id if single digit
+		            		String packetId = i >= 10 ? ""+i : "0"+i;
+		            		String fullPacket = packetId+packetText;
+		            		if(packetProbability) 
+			                {
+			                	out.println(fullPacket);
+			                }
+		            	}
+		            }
+        		}
             }
         	//inform client that all packets were received by client
         	out.println("YOU_HAVE_RECEIVED_ALL_PACKETS");
@@ -75,7 +80,6 @@ public abstract class Server {
         }
     }
 }
-
 
 
 
