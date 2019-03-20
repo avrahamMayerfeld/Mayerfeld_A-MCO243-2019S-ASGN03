@@ -34,7 +34,7 @@ public class Client {
         			//echo first three characters, first two of which is id, third to identify valid I/O
 					out.println(serverMessage.substring(0, 3));
 					// first two string digits automatically will prioritize rest of string based on ASCII?
-					if(serverMessage.matches("\\d\\d\\w+"))
+					if(serverMessage.matches("\\d\\d\\D\\w+.*"))
 					{
 						if(!packetQ.contains(serverMessage))
 							packetQ.add(serverMessage);

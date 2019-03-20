@@ -44,12 +44,10 @@ public abstract class Server {
         	//print out first packet so can work
         	out.println("00"+packets.get(0));
         	
-        	
         	//serverSocket.setSoTimeout(3000);
         	//check that there are still non-received packets in while loop
         	while (!packets.stream().allMatch(x -> x.equals("##$EMPTY_SLOT$##")))
         	{   
-        		
         		String inputLine = in.readLine();
         		if(inputLine.matches("\\d\\d\\w"))
         		{
@@ -57,12 +55,12 @@ public abstract class Server {
         			String idSubstring = inputLine.substring(0,2);
 	            	int receivedPacketNumber = Integer.parseInt(idSubstring);//contains first 2 digits of packet id echoed by client
 	            	//set received packets to Empty.
-	            	packets.set(receivedPacketNumber, "##$EMPTY_SLOT$##");
+	            	packets.set(receivedPacketNumber, "##$$$EMPTY_SLOT$##");
 	            	//go through all packets as long as there are non empty ones - maybe needs optimization
 		            for (int i = 1; i < packets.size(); i++) 
 		            {   
 		            	String packetText = packets.get(i);
-		            	if(!packetText.equals("##$EMPTY_SLOT$##")) 
+		            	if(!packetText.equals("##$$$EMPTY_SLOT$##")) 
 		            	{
 		            		//send packets. use index in arrayList as "numerical" String id. Append "0" to id if single digit
 		            		String packetId = i >= 10 ? ""+i : "0"+i;
