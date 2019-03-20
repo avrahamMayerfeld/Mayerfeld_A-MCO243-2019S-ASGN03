@@ -23,13 +23,12 @@ public class Client {
             ) 
         {
         	System.out.println("Connected to socket - host="+hostName+" and port="+portNumber);
-        	//out.println("Start sending");
+        	out.println("Start sending");
+        	//echoSocket.setSoTimeout(5000);
         	while(true)
 			{
-        		//echoSocket.setSoTimeout(5000);
+        		
         		String serverMessage = in.readLine();
-        		if (serverMessage.equalsIgnoreCase("Sending"))
-        			continue;
         		if(serverMessage != null) 
         		{
         			if(serverMessage.equals("YOU_HAVE_RECEIVED_ALL_PACKETS"))
@@ -37,7 +36,8 @@ public class Client {
         			//echo first two characters which is id
 					out.println(serverMessage.substring(0, 2));
 					// first two string digits automatically will prioritize rest of string based on ASCII?
-					packetQ.add(serverMessage);
+					if(serverMessage.matches("\\d\\d\\w+"))
+						packetQ.add(serverMessage);
         		}
 			}
         	//read all packets after all have been received, leaving out ids

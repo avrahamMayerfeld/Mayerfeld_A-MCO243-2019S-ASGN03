@@ -40,13 +40,14 @@ public abstract class Server {
         		
         ) {
         	System.out.println("Server started on port "+ portNumber);
-        	out.println("Sending");
-        	//check that there are still non-received packets
+        	
+        	
+        	//check that there are still non-received packets in while loop
         	while (!packets.stream().allMatch(x -> x == null))
-            {   
-        		
+        	{   
+        		out.println("000");
         		String inputLine = in.readLine();
-        		if(inputLine.matches("\\d\\d.+"))
+        		if(inputLine.matches("\\d\\d\\w+"))
         		{
 	        			//serverSocket.setSoTimeout(3000);
 	        		//can parse 01 into 1?
