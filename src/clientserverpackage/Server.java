@@ -41,17 +41,20 @@ public abstract class Server {
         ) {
         	System.out.println("Server started on port "+ portNumber);
         	
+        	//print out first packet so can work
+        	out.println(packets.get(0));
         	
+        	//serverSocket.setSoTimeout(3000);
         	//check that there are still non-received packets in while loop
         	while (!packets.stream().allMatch(x -> x == null))
         	{   
-        		out.println("000");
+        		
         		String inputLine = in.readLine();
-        		if(inputLine.matches("\\d\\d\\w+"))
+        		if(inputLine.matches("\\d\\d\\w"))
         		{
-	        			//serverSocket.setSoTimeout(3000);
-	        		//can parse 01 into 1?
-	            	int receivedPacketNumber = Integer.parseInt(inputLine);//contains first 2 digits of packet id echoed by client
+        			//can parse 01 into 1?
+        			String idSubstring = inputLine.substring(0,2);
+	            	int receivedPacketNumber = Integer.parseInt(idSubstring);//contains first 2 digits of packet id echoed by client
 	            	//set received packets to null.
 	            	packets.set(receivedPacketNumber, null);
 	            	//go through all packets as long as there are non null ones - maybe needs optimization
@@ -67,9 +70,15 @@ public abstract class Server {
 			                {
 			                	out.println(fullPacket);
 			                }
+		            		else
+		            			out.println("0000 ");
 		            	}
+		            	else
+	            			out.println("0000 ");
 		            }
         		}
+        		else
+        			out.println("0000 ");
             }
         	//inform client that all packets were received by client
         	out.println("YOU_HAVE_RECEIVED_ALL_PACKETS");
