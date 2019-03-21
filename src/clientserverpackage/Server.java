@@ -46,39 +46,38 @@ public abstract class Server {
         	
         	//serverSocket.setSoTimeout(3000);
         	//check that there are still non-received packets in while loop
-        	while (!packets.stream().allMatch(x -> x.equals("##$EMPTY_SLOT$##")))
+        	while (!packets.stream().allMatch(x -> x.equals("##$$$EMPTY_SLOT$##")))
         	{   
+        		
         		String inputLine = in.readLine();
-        		if(inputLine.matches("\\d\\d\\w"))
-        		{
-        			//can parse 01 into 1?
-        			String idSubstring = inputLine.substring(0,2);
-	            	int receivedPacketNumber = Integer.parseInt(idSubstring);//contains first 2 digits of packet id echoed by client
-	            	//set received packets to Empty.
-	            	packets.set(receivedPacketNumber, "##$$$EMPTY_SLOT$##");
-	            	//go through all packets as long as there are non empty ones - maybe needs optimization
-		            for (int i = 1; i < packets.size(); i++) 
-		            {   
-		            	String packetText = packets.get(i);
-		            	if(!packetText.equals("##$$$EMPTY_SLOT$##")) 
-		            	{
-		            		//send packets. use index in arrayList as "numerical" String id. Append "0" to id if single digit
-		            		String packetId = i >= 10 ? ""+i : "0"+i;
-		            		String fullPacket = packetId+packetText;
-		            		if(packetProbability) 
-			                {
-			                	out.println(fullPacket);
-			                }
-		            		else
-		            			out.println("00000000");
-		            	}
-		            	else
-	            			out.println("0000");
-		            }
-        		}
-        		else
-        			out.println("00zx ");
-            }
+        		
+       			//can parse 01 into 1?rst
+        		String idSubstring = inputLine.substring(0,2);
+	           	int receivedPacketNumber = Integer.parseInt(idSubstring);//contains first 2 digits of packet id echoed by client
+	           	//set received packets to Empty.
+	           	packets.set(receivedPacketNumber, "##$$$EMPTY_SLOT$##");
+	            //go through all packets as long as there are non empty ones - maybe needs optimization
+		        for (int i = 0; i < packets.size(); i++) 
+	            {   
+		        	String packetText = packets.get(i);
+		           	if(!packetText.equals("##$$$EMPTY_SLOT$##")) 
+		           	{
+		           		//send packets. use index in arrayList as "numerical" String id. Append "0" to id if single digit
+		           		String packetId = i >= 10 ? ""+i : "0"+i;
+		           		String fullPacket = packetId+packetText;
+		           		setProbability();
+		           		if(packetProbability) 
+		           		{
+		           			out.println(fullPacket);
+			            }
+		           		else
+		           			out.println("00xx");
+		           	}
+		            else
+		            	out.println("00yy");
+	            }
+        		
+        	}
         	//inform client that all packets were received by client
         	out.println("YOU_HAVE_RECEIVED_ALL_PACKETS");
             

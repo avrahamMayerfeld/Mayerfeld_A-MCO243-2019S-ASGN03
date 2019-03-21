@@ -13,11 +13,11 @@ public class Demo extends Server {
 	        	+ "sixteen seventeen eighteen nineteen twenty twenty-one twenty-two twenty-three twenty-four twenty-five.";
 	      
 	    //split into packets and add to array
-	    String[] packetsArray = originalMessage.split(" ");//new String[25];
+	    String[] packetsArray = originalMessage.split(" ");
 	    //set Server's ArrayList to a conversion of the array
 	   	Demo tcpd = new Demo();
 	    tcpd.setPackets(packetsArray);
-	   	tcpd.setProbability();
+	   	
 	    tcpd.performTCPServerProtocol();
 		}
 	@Override

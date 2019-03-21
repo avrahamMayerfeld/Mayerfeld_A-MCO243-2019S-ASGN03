@@ -27,14 +27,18 @@ public class Client {
         	while(true)
 			{
         		String serverMessage = in.readLine();
+        		String echo = serverMessage.substring(0, 3);
         		if(serverMessage != null) 
         		{
         			if(serverMessage.equals("YOU_HAVE_RECEIVED_ALL_PACKETS"))
         				break;
         			//echo first three characters, first two of which is id, third to identify valid I/O
-					out.println(serverMessage.substring(0, 3));
-					// first two string digits automatically will prioritize rest of string based on ASCII?
-					if(serverMessage.matches("\\d\\d\\D\\w+.*"))
+        			System.out.println("client is about to send "+echo);
+					out.println(echo);
+					System.out.println("serverMessage being read is "+echo);
+					// first two string digits automatically will prioritize rest of string based on ASCII
+					boolean notNonsense = !(serverMessage.equals("00xx") || serverMessage.equals("00yy"));
+					if(serverMessage.matches("\\d\\d\\D\\w+.*") && notNonsense)
 					{
 						if(!packetQ.contains(serverMessage))
 							packetQ.add(serverMessage);
