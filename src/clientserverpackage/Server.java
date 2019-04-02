@@ -15,9 +15,9 @@ public abstract class Server {
 	/*
 	Explanation of protocol: 
 	(The abstract Server class is implemented in a demo class which sets the probability as desired.)
-	
 	The first packet is printed out to the client and not dropped so that the process can begin. 
-	There is a while loop that continues until all of the packets in the server are set to empty by the server, 
+	There is a while loop that continues until all of the packets in the server are set to empty by the server,
+	(explained further below)
 	after which it sends a non-droppable message to the client that it knows the client received everything, 
 	so the client can continue and print out all of the packets in order, which is accomplished by a priorityQueue which 
 	sorts the packets based on ACII. Each packet gets its ArrayList index appended to it for id purposes. and a zero is 
@@ -26,7 +26,11 @@ public abstract class Server {
 	of the packet based on ASCII. The Client verifies that the message sent is a valid packet and not a message telling the client 
 	that it is not a packet. It only adds packets that have not been added to the priorityQueue, and when it finally prints everything
 	tto the console, it is without the digital id of course. 
-	This while loop does the following:
+	The while loop in the server which was mentioned does the following:
+	1) reads the echo from the client,
+	2)sets the packet number index that was echoed in the List to "##$$$EMPTY_SLOT$##", to know it was received,
+	3)
+	4)
 
 	
 	
