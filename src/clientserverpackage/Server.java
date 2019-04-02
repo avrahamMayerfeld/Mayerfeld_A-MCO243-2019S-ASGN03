@@ -20,22 +20,22 @@ public abstract class Server {
 	(explained further below)
 	after which it sends a non-droppable message to the client that it knows the client received everything, 
 	so the client can continue and print out all of the packets in order, which is accomplished by a priorityQueue which 
-	sorts the packets based on ACII. Each packet gets its ArrayList index appended to it for id purposes. and a zero is 
-	appended to single digit indexes. The eclient echos back the digit id as well as the first character of the packet itself 
-	to confirm that it is a word character, for valid I/O purposes. The first two digits automatically prioritize the rest 
+	sorts the packets based on ACII. Each packet gets its ArrayList index appended to it for id purposes, and a zero is 
+	appended to single digit indexes. The client echos back the digit id as well as the first character of the packet itself 
+	to confirm that it is a word character, for valid I/O purposes.(I think this ended up not being needed because of the  server's layout, 
+	but i don't want to change it now, and it can be used in another implementation). The first two digits automatically prioritize the rest 
 	of the packet based on ASCII. The Client verifies that the message sent is a valid packet and not a message telling the client 
 	that it is not a packet. It only adds packets that have not been added to the priorityQueue, and when it finally prints everything
 	tto the console, it is without the digital id of course. 
 	The while loop in the server which was mentioned does the following:
 	1) reads the echo from the client,
 	2)sets the packet number index that was echoed in the List to "##$$$EMPTY_SLOT$##", to know it was received,
-	3)
-	4)
-
-	
-	
-	
-	*/
+	3)goes through all of the packets and send the non-"empty" ones with the id mentioned above,
+	4)if a packet is not being sent, some other message is sent to keep the i/o going and to see what's going on,
+	5)informs the client when all packets have been echoed.
+	I see that for some reason, everything works when i run the server in debug mode, but not when i run the server regularly.
+	also, optimization may be in order because there is too much looping, but i haven't figured out how to do this.
+        */
 	ArrayList<String> packets;
 	public  void setPackets(String[] arr) {
 		packets = new ArrayList<>(Arrays.asList(arr));
