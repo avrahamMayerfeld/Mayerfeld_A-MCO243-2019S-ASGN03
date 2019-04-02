@@ -12,7 +12,26 @@ import java.net.*;
 import java.io.*;
 
 public abstract class Server {
+	/*
+	Explanation of protocol: 
+	(The abstract Server class is implemented in a demo class which sets the probability as desired.)
 	
+	The first packet is printed out to the client and not dropped so that the process can begin. 
+	There is a while loop that continues until all of the packets in the server are set to empty by the server, 
+	after which it sends a non-droppable message to the client that it knows the client received everything, 
+	so the client can continue and print out all of the packets in order, which is accomplished by a priorityQueue which 
+	sorts the packets based on ACII. Each packet gets its ArrayList index appended to it for id purposes. and a zero is 
+	appended to single digit indexes. The eclient echos back the digit id as well as the first character of the packet itself 
+	to confirm that it is a word character, for valid I/O purposes. The first two digits automatically prioritize the rest 
+	of the packet based on ASCII. The Client verifies that the message sent is a valid packet and not a message telling the client 
+	that it is not a packet. It only adds packets that have not been added to the priorityQueue, and when it finally prints everything
+	tto the console, it is without the digital id of course. 
+	This while loop does the following:
+
+	
+	
+	
+	*/
 	ArrayList<String> packets;
 	public  void setPackets(String[] arr) {
 		packets = new ArrayList<>(Arrays.asList(arr));
@@ -51,7 +70,7 @@ public abstract class Server {
         		
         		String inputLine = in.readLine();
         		
-       			//can parse 01 into 1?rst
+       			//can parse 01 into 1
         		String idSubstring = inputLine.substring(0,2);
 	           	int receivedPacketNumber = Integer.parseInt(idSubstring);//contains first 2 digits of packet id echoed by client
 	           	//set received packets to Empty.
