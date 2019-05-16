@@ -15,11 +15,11 @@ public class Demo extends Server {
 	    //split into packets and add to array
 	    String[] packetsArray = originalMessage.split(" ");
 	    //set Server's ArrayList to a conversion of the array
-	   	Demo tcpd = new Demo();
+	    Demo tcpd = new Demo();
 	    tcpd.setPackets(packetsArray);
 	   	
 	    tcpd.performTCPServerProtocol();
-		}
+	}
 	@Override
 	public void setProbability()
 	{
