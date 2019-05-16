@@ -79,9 +79,9 @@ public abstract class Server {
 	           	int receivedPacketNumber = Integer.parseInt(idSubstring);//contains first 2 digits of packet id echoed by client
 	           	//set received packets to Empty.
 	           	packets.set(receivedPacketNumber, "##$$$EMPTY_SLOT$##");
-	            //go through all packets as long as there are non empty ones - maybe needs optimization
+	                //go through all packets as long as there are non empty ones - maybe needs optimization
 		        for (int i = 0; i < packets.size(); i++) 
-	            {   
+	                {   
 		        	String packetText = packets.get(i);
 		           	if(!packetText.equals("##$$$EMPTY_SLOT$##")) 
 		           	{
@@ -92,13 +92,13 @@ public abstract class Server {
 		           		if(packetProbability) 
 		           		{
 		           			out.println(fullPacket);
-			            }
+			                }
 		           		else
 		           			out.println("00xx");
 		           	}
 		            else
 		            	out.println("00yy");
-	            }
+	             	}
         		
         	}
         	//inform client that all packets were received by client
