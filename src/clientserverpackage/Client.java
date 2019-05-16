@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Client {
 	
 	static PriorityQueue<String> packetQ = new PriorityQueue<String>();
-    public static void main(String[] args) throws IOException {
+    	public static void main(String[] args) throws IOException {
         
     	Scanner keyboard = new Scanner(System.in);
     	System.out.println("Enter the host name");
@@ -17,15 +17,15 @@ public class Client {
         keyboard.close();
 
         try (
-            Socket echoSocket = new Socket(hostName, portNumber);
+            	Socket echoSocket = new Socket(hostName, portNumber);
         	PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
+            	BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
             ) 
         {
         	System.out.println("Connected to socket - host="+hostName+" and port="+portNumber);
         	
         	while(true)
-			{
+		{
         		String serverMessage = in.readLine();
         		String echo = serverMessage.substring(0, 3);
         		if(serverMessage != null) 
@@ -34,17 +34,17 @@ public class Client {
         				break;
         			//echo first three characters, first two of which is id, third to identify valid I/O
         			System.out.println("client is about to send "+echo);
-					out.println(echo);
-					System.out.println("serverMessage being read is "+echo);
-					// first two string digits automatically will prioritize rest of string based on ASCII
-					boolean notNonsense = !(serverMessage.equals("00xx") || serverMessage.equals("00yy"));
-					if(serverMessage.matches("\\d\\d\\D\\w+.*") && notNonsense)
-					{
-						if(!packetQ.contains(serverMessage))
-							packetQ.add(serverMessage);
-					}
+				out.println(echo);
+				System.out.println("serverMessage being read is "+echo);
+				// first two string digits automatically will prioritize rest of string based on ASCII
+				boolean notNonsense = !(serverMessage.equals("00xx") || serverMessage.equals("00yy"));
+				if(serverMessage.matches("\\d\\d\\D\\w+.*") && notNonsense)
+				{
+					if(!packetQ.contains(serverMessage))
+						packetQ.add(serverMessage);
 				}
 			}
+		}
         	//read all packets after all have been received, leaving out ids
         	while(!packetQ.isEmpty()) 
         	{
